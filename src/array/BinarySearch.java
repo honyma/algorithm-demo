@@ -2,6 +2,8 @@ package array;
 
 /**
  * 二分查找 (左闭右开) [1,10)
+ * 本质还是用左右（首尾）指针的问题
+ * https://leetcode.cn/problems/binary-search/description/
  *
  * @author mazehong
  * @date 2024/7/23
