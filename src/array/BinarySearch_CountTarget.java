@@ -13,16 +13,60 @@ public class BinarySearch_CountTarget {
 
     //某班级考试成绩按非严格递增顺序记录于整数数组 scores，请返回目标成绩 target 的出现次数。
     //这道题重点就是数组是递增有顺序的，并且如果出现跟目标相同的元素，是会紧密排列在一起的
-    //所以重点就是找出左边第一个等于target的下表，再找出右边第一个大于target的下标，然后(rightIdx - leftIdx +1)就是出现的次数
+    //所以重点就是找出左边第一个等于target的下表，再找出右边第一个等于target的下标，然后(rightIdx - leftIdx +1)就是出现的次数
     public static int countTarget(int[] scores, int target) {
-
-        /*int leftIdx = binarySearch(scores, target, true);
-        int rightIdx = binarySearch(scores, target, false);
-        if (rightIdx == 0 || leftIdx == 0) {
+        if (scores.length == 0) {
             return 0;
         }
-        return (rightIdx - leftIdx) + 1;*/
-        return countTarget2(scores, target);
+        int firstPosition = findFirstPosition(scores, target);
+        if (firstPosition == -1) {
+            return 0;
+        }
+        //如果有一个目标元素出现，一定会有最后一个
+        int lastPosition = findLastPosition(scores, target);
+        return lastPosition - firstPosition + 1;
+        //return countTarget2(scores, target);
+    }
+
+    private static int findLastPosition(int[] scores, int target) {
+        int left = 0;
+        int right = scores.length;
+        while (left < right) {
+            int mid = left + ((right - left) >> 1);
+            if (scores[mid] > target) {
+                right = mid;
+            } else if (scores[mid] == target) {
+                //如果相等，继续往右查找最后一个元素，直到left=right退出
+                left = mid + 1;
+            } else {
+                //scores[mid] < target
+                left = mid + 1;
+            }
+        }
+        return left - 1; //这里由于用的是左闭右开原则，所以不包含最后一个数组长度length的元素，所以要减一
+    }
+
+    private static int findFirstPosition(int[] scores, int target) {
+        int left = 0;
+        int right = scores.length;//这里遵循的是左闭右开原则
+        while (left < right) {
+            int mid = left + ((right - left) >> 1);
+            if (scores[mid] > target) {
+                right = mid;
+            } else if (scores[mid] == target) {
+                //继续往左边查找第一个等于target值，直到left = right退出
+                right = mid;
+            } else {
+                //scores[mid] < target
+                left = mid + 1;
+            }
+        }
+        //要判断数组越界问题，因为左闭右开不包含数组长度最后一个
+        //并且左边第一个元素值要等于目标值
+        if (left < scores.length && scores[left] == target) {
+            return left;
+        }
+        return -1;
     }
 
     public static int countTarget2(int[] scores, int target) {
@@ -47,59 +91,24 @@ public class BinarySearch_CountTarget {
         }
         for (int i = mid + 1; i < right; i++) {
             if (scores[i] == target) {
-                count+=1;
+                count += 1;
             } else {
-                break;
+                break;//这里要退出，这一步很关键
             }
         }
-        for (int i = mid -1; i >= left; i--) {
+        for (int i = mid - 1; i >= left; i--) {
             if (scores[i] == target) {
-                count+=1;
+                count += 1;
             } else {
-                break;
+                break; //这里要退出，这一步很关键
             }
         }
         return count;
     }
 
     //如果lower为true, 说明找的是左边第一个等于target的下标
-    //如果lower为false, 说明找的是右边第一个大于target的下标，然后要下标再减一
-    /*public static int binarySearch(int[] nums, int target, boolean lower) {
-        int left = 0;
-        int right = nums.length;
-        int index = 0;
-        while (left < right) {
-            int mid = left + ((right - left) >> 1);
-            if (nums[mid] == target) {
-                if (mid == 0) {
-                    index =1;
-                    break;
-                }
-                if (lower) {
-                    if (nums[mid - 1] < target) {
-                        index = mid;
-                        break;
-                    }
-                    if (nums[mid - 1] == target) {
-                        right = mid;
-                    }
-                } else {
-                    if (nums[mid + 1] > target) {
-                        index = mid;
-                        break;
-                    }
-                    if (nums[mid + 1] == target) {
-                        left = mid + 1;
-                    }
-                }
-            } else if (nums[mid] > target) {
-                right = mid;
-            } else {
-                left = mid + 1;
-            }
-        }
-        return index;
-    }*/
+    //如果lower为false, 说明找的是右边第一个等于target的下标
+
 
     public static void main(String[] args) {
         int[] a = new int[]{2, 2, 3, 4, 4, 4, 5, 6, 6, 8};

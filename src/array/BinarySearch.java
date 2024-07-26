@@ -26,10 +26,13 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
-        int[] a = new int[]{-1, 0, 3, 5, 9, 12};
-        System.out.println(binarySearch(a, 9));
+        /*int[] a = new int[]{-1, 0, 3, 5, 9, 12};
+        System.out.println(binarySearch(a, 9));*/
 
-        int[] b = new int[]{-1, 0, 3, 5, 9, 12};
+        int[] b = new int[]{-1, 0, 2, 5, 9, 12};
         System.out.println(binarySearch(b, 2));
+
+        /*int[] b = new int[]{5, 7, 7, 8, 8, 10};
+        System.out.println(binarySearch(b, 8));*/
     }
 }
