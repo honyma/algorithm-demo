@@ -7,7 +7,7 @@ package array;
  * @author mazehong
  * @date 2024/7/23
  */
-public class RemoveTargetElement {
+public class FastSlowPoint_RemoveTargetElement {
 
     //删除元素后，并且要把数组元素往前移动。因为对数组删除元素后需要移动其他元素
     public static int removeTargetElement(int[] nums, int val) {
