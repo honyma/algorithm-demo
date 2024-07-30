@@ -58,6 +58,7 @@ public class SlidingWindow_MinCoverSubstring {
                 left++;
             }
         }
+        //最后要判断一些，解决 相同字符串的子串问题
         return minLen == Integer.MAX_VALUE ? "" : s.substring(begin, begin + minLen);
     }
 
