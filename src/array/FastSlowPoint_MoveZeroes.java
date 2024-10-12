@@ -8,6 +8,7 @@ package array;
  */
 public class FastSlowPoint_MoveZeroes {
     public static void moveZeroes(int[] nums) {
+        //用两个前后指针
         int slow = 0;
         for (int fast = 0; fast < nums.length; fast++) {
             if (nums[fast] != 0) {

@@ -11,9 +11,12 @@ public class HeadTailPoint_ReverseString2 {
     public static String reverseStr(String s, int k) {
         char []sChar = s.toCharArray();
         for(int i=0; i<sChar.length; i+=(2*k)) {
+            //遵循左闭右闭原则
             if(i+k <= sChar.length) {
+                //遵循左闭右闭原则
                 reverseChar(sChar, i, i+k-1);
             } else {
+                //遵循左闭右闭原则
                 reverseChar(sChar, i, sChar.length-1);
             }
         }
